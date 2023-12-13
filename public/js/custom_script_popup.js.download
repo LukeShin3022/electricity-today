@@ -1,0 +1,1355 @@
+function getXMLHTTP()
+
+{ //fuction to return the xml http object
+
+	var xmlhttp = false;
+
+	try
+
+	{
+
+		xmlhttp = new XMLHttpRequest();
+
+	}
+
+	catch (e)
+
+	{
+
+		try
+
+		{
+
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+
+		}
+
+		catch (e)
+
+		{
+
+			try {
+
+				xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+
+			}
+
+			catch (e1)
+
+			{
+
+				xmlhttp = false;
+
+			}
+
+		}
+
+	}
+
+	return xmlhttp;
+
+}		
+
+		
+
+		
+
+		// Input Masking for Phone Number
+
+		jQuery("body").on("focusin","#tel",function() {
+
+		jQuery('#tel').mask("999-999-9999");		
+
+		jQuery("#tel").on("blur", function() {						
+
+			  var last = jQuery(this).val().substr( jQuery(this).val().indexOf("-") + 1 );						
+
+			  if( last.length == 5 ) {
+
+				  var move = jQuery(this).val().substr(jQuery(this).val().indexOf("-") + 1, 1 );		  
+
+				  var lastfour = last.substr(1,4);				  
+
+				  var first = jQuery(this).val().substr( 0, 9 );				  
+
+				  jQuery(this).val( first + move + '-' + lastfour );
+
+			  }
+
+		  });			
+
+		});
+
+		
+
+		// Input Masking for Fax Number
+
+		jQuery("body").on("focusin","#txt_fax",function() {
+
+		jQuery('#txt_fax').mask("999-999-9999");		
+
+		jQuery("#txt_fax").on("blur", function() {						
+
+			  var last = jQuery(this).val().substr( jQuery(this).val().indexOf("-") + 1 );						
+
+			  if( last.length == 5 ) {
+
+				  var move = jQuery(this).val().substr(jQuery(this).val().indexOf("-") + 1, 1 );		  
+
+				  var lastfour = last.substr(1,4);				  
+
+				  var first = jQuery(this).val().substr( 0, 9 );				  
+
+				  jQuery(this).val( first + move + '-' + lastfour );
+
+			  }
+
+		  });			
+
+		});
+
+		
+
+		
+
+	function isNumberKey(key)
+
+	{ // Function to validate input values to only numbers
+
+		var keycode = (key.which) ? key.which : key.keyCode;
+
+		var keycode_ascii = (key.which) ? key.which : key.KeyAscii;
+
+	
+
+		if ((keycode_ascii == 35 || keycode_ascii == 36 || keycode_ascii == 37 || keycode_ascii == 39 || keycode_ascii == 46) || !(keycode == 8 || keycode == 9 || keycode == 35 || keycode == 36 || keycode == 37 || keycode == 39 || keycode == 46 || keycode == 45) && (keycode < 48 || keycode > 57))
+
+		{
+
+			return false;
+
+		}
+
+	}
+
+	function isalphaKey(key)
+
+	{ // Function to validate input values to only Alphabets
+
+		var keycode = (key.which) ? key.which : key.keyCode;			
+
+			
+
+		if (keycode > 31 && keycode <91 && (keycode < 65 || keycode > 90) && !(keycode > 34 && keycode < 41) && keycode!=46)
+
+		{
+
+			return false;
+
+		}
+
+		else if (keycode > 90 && keycode < 127 && (keycode < 97 || keycode > 122) && !(keycode > 34 && keycode < 41) && keycode!=46 )
+
+		{
+
+			return false;
+
+		}
+
+		else
+
+		{
+
+			return true;
+
+		}
+
+	}
+
+	function isalphaKey_space(key)
+
+	{ // Function to validate input values to only Alphabets
+
+		var keycode = (key.which) ? key.which : key.keyCode;			
+
+		
+
+		
+
+		if (keycode > 32 && keycode <91 && (keycode < 65 || keycode > 90) && !(keycode > 34 && keycode < 41) && keycode!=46)
+
+		{
+
+			return false;
+
+		}
+
+		else if (keycode > 90 && keycode < 127 && (keycode < 97 || keycode > 122) && !(keycode > 34 && keycode < 41) && keycode!=46)
+
+		{
+
+			return false;
+
+		}
+
+		else
+
+		{
+
+			return true;
+
+		}
+
+	}
+
+	var ajax_url="wp-content/themes/NewsMedia/js/ajax_files/";
+
+	
+
+	function fun_getdata(loc) // Function to get values based on search field
+
+	{
+
+	var data = "action=myAjaxFunction";
+
+	//xmlhttp.open("POST","http://your_site.com/wp-admin/admin-ajax.php",true);
+
+	//xmlhttp.send(data);
+
+		//http://www.electricity-today.com/wp-content/themes/NewsMedia/js/
+
+		
+
+		var loc = loc.replace("http://", "");
+
+		//console.log(loc);
+
+		
+
+		var strURL_liaison = "wp-content/themes/NewsMedia/js/ajax_files/ajax_getdata.php?sel_value=" + loc;
+
+		document.getElementById('div_showprocess').style.display='block';
+
+		document.getElementById('div_getdata').style.display='none';
+
+		//console.log(strURL_liaison);
+
+		var req = getXMLHTTP();
+
+		if (req)
+
+		{
+
+			req.onreadystatechange = function () {
+
+				if (req.readyState == 4)
+
+				{   // only if "OK"
+
+					if (req.status == 200)
+
+					{
+
+						//console.log(req.responseText);
+
+						document.getElementById('div_getdata').innerHTML = req.responseText;
+
+						document.getElementById('div_showprocess').style.display='none';
+
+						document.getElementById('div_getdata').style.display='block';
+
+						//alert(document.getElementById('tel'));
+
+					}
+
+					else
+
+					{
+
+						console.log("There was a problem while using XMLHTTP:\n" + req.statusText);
+
+					}
+
+				}
+
+			}
+
+			req.open("GET", strURL_liaison, true);
+
+			req.send(data);
+
+		}	
+
+	}
+
+		
+
+		
+
+		function fun_backtostep1()
+
+		{
+
+			hid_last_record_id=document.forms['form_basic'].hid_last_record_id.value;
+
+			reference = document.forms['form_basic'].hid_reference.value;
+
+			
+
+			var strURL_liaison = "wp-content/themes/NewsMedia/js/ajax_files/ajax_getdata.php?hid_last_record_id="+hid_last_record_id+"&reference="+reference;
+
+			document.getElementById('div_showprocess').style.display='block';
+
+			document.getElementById('div_getdata').style.display='none';
+
+			
+
+			//alert(strURL_liaison);
+
+			var req = getXMLHTTP();
+
+			if (req)
+
+			{
+
+				req.onreadystatechange = function() 
+
+				{
+
+					if (req.readyState == 4)
+
+					{  
+
+						// only if "OK"
+
+						if (req.status == 200)
+
+						{
+
+							//alert(req.responseText);
+
+							document.getElementById('div_getdata').innerHTML = req.responseText;
+
+							document.getElementById('div_showprocess').style.display='none';
+
+							document.getElementById('div_getdata').style.display='block';
+
+						}
+
+						else
+
+						{
+
+							alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+
+						}
+
+					}
+
+				}
+
+				req.open("GET", strURL_liaison, true);
+
+				req.send(null);
+
+			}	
+
+		}
+
+	
+
+	
+
+ 
+
+
+
+	function fun_continue()
+
+	{	
+
+		if(CheckFB()){
+
+			action=document.forms['form_basic'].hid_action.value;
+
+		fnm=document.forms['form_basic'].firstName.value;
+
+		lnm=document.forms['form_basic'].lastName.value;
+
+		jobtitle=document.forms['form_basic'].txt_job_title.value;
+
+		co_nm=document.forms['form_basic'].txt_company.value;
+
+		email=document.forms['form_basic'].eMail.value;
+
+		tel=document.forms['form_basic'].tel.value;
+
+		fax=document.forms['form_basic'].txt_fax.value;		
+
+		
+		fnm=fnm.replace(/ /g , "..");
+		lnm=lnm.replace(/ /g , "..");
+		jobtitle=jobtitle.replace(/ /g , "..");
+
+		co_nm=co_nm.replace(/ /g , "..");
+
+		
+
+		
+
+		reference=document.forms['form_basic'].hid_reference.value;
+
+		
+
+		//var strURL_liaison = "wp-content/themes/NewsMedia/js/ajax_files/ajax_step2.php?fnm="+fnm+"&lnm="+lnm+"&jobtitle="+jobtitle+"&co_nm="+co_nm+"&em="+email+"&tel="+tel+"&reference="+reference;
+
+		
+
+		
+
+		
+
+		if(document.forms['form_basic'].hid_last_record_id)
+
+		{	
+
+			hid_last_record_id=document.forms['form_basic'].hid_last_record_id.value;
+
+			var strURL_liaison = "wp-content/themes/NewsMedia/js/ajax_files/ajax_step2.php?fnm="+fnm+"&lnm="+lnm+"&jobtitle="+jobtitle+"&co_nm="+co_nm+"&em="+email+"&tel="+tel+"&fax="+fax+"&reference="+reference+"&action="+action+"&hid_last_record_id="+hid_last_record_id;
+
+		}
+
+		else
+
+		{	
+
+			var strURL_liaison = "wp-content/themes/NewsMedia/js/ajax_files/ajax_step2.php?fnm="+fnm+"&lnm="+lnm+"&jobtitle="+jobtitle+"&co_nm="+co_nm+"&em="+email+"&tel="+tel+"&fax="+fax+"&reference="+reference+"&action="+action;
+
+		}
+
+		
+
+		
+
+		//console.log(strURL_liaison);
+
+		document.getElementById('div_showprocess').style.display='block';
+
+		document.getElementById('div_getdata').style.display='none';
+
+		var req = getXMLHTTP();
+
+		if (req)
+
+		{
+
+			req.onreadystatechange = function () 
+
+			{
+
+				if (req.readyState == 4)
+
+				{  
+
+					// only if "OK"
+
+					if (req.status == 200)
+
+					{
+
+						//alert(req.responseText);
+
+						document.getElementById('div_getdata').innerHTML = req.responseText;
+
+						document.getElementById('div_showprocess').style.display='none';
+
+						document.getElementById('div_getdata').style.display='block';
+
+					}
+
+					else
+
+					{
+
+						alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+
+					}
+
+				}
+
+			}
+
+			req.open("GET", strURL_liaison, true);
+
+			req.send(null);
+
+		}	
+
+		}
+
+	} 
+
+	
+
+	function CheckFB()
+
+	{
+
+	
+
+	if(CheckFirstName() && CheckLastName() && Check_job_title() &&  Check_company() && CheckEMail() && CheckTel() && Checkfax()) 
+
+       {return true;}
+
+	   else
+
+       {return false;}
+
+	}
+
+	
+
+
+
+	
+
+function CheckFirstName()
+
+	{
+
+if(document.forms['form_basic'].firstName.value=="")
+
+{     
+
+window.alert("Enter your first name, please");
+
+document.forms['form_basic'].firstName.focus();
+
+return false;
+
+}
+
+else
+
+    return true;
+
+}
+
+
+
+function CheckLastName()
+
+	{
+
+if(document.forms['form_basic'].lastName.value=="")
+
+{     
+
+window.alert("Enter your last name, please");
+
+document.forms['form_basic'].lastName.focus();
+
+return false;
+
+}
+
+else
+
+    return true;
+
+}
+
+
+
+function Check_job_title()
+
+{
+
+	if(document.forms['form_basic'].txt_job_title.value=="")
+
+	{     
+
+		window.alert("Enter your Job Title, please");
+
+		document.forms['form_basic'].txt_job_title.focus();
+
+		return false;
+
+	}
+
+	else
+
+	{
+
+		return true;
+
+	}
+
+}
+
+function Check_company()
+
+{
+
+	if(document.forms['form_basic'].txt_company.value=="")
+
+	{     
+
+		window.alert("Enter your Company, please");
+
+		document.forms['form_basic'].txt_company.focus();
+
+		return false;
+
+	}
+
+	else
+
+	{
+
+		return true;
+
+	}
+
+}
+
+
+
+function CheckTel()
+
+{
+
+	if(document.forms['form_basic'].tel.value=="")
+
+	{     
+
+		window.alert("Please provide your phone number");
+
+		document.forms['form_basic'].tel.focus();
+
+		return false;
+
+	}
+
+	else if(document.forms['form_basic'].tel.value.search(/\d{3}\-\d{3}\-\d{4}/)==-1)
+
+	{
+
+		alert("The phone number you entered is not valid.\r\nPlease enter a phone number with the format xxx-xxx-xxxx.");
+
+		return false;
+
+	}
+
+	return true;
+
+}
+
+
+
+function Checkfax()
+
+{
+
+	if(document.forms['form_basic'].txt_fax.value!="" && document.forms['form_basic'].txt_fax.value.search(/\d{3}\-\d{3}\-\d{4}/)==-1)
+
+	{
+
+		alert("The fax number you entered is not valid.\r\nPlease enter a fax number with the format xxx-xxx-xxxx.");
+
+		return false;
+
+	}
+
+	return true;
+
+}
+
+
+
+function CheckEMail()
+
+{
+
+	if(document.forms['form_basic'].eMail.value=="")
+
+	{     
+
+	window.alert("Please provide your eMail.");
+
+	document.forms['form_basic'].eMail.focus();
+
+	return false;
+
+	}
+
+	else if(document.forms['form_basic'].eMail.value.search(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)==-1)
+
+   {
+
+      alert("The eMail you entered is not valid.");
+
+      return false;
+
+   }
+
+    return true;
+
+}      
+
+
+
+ function fun_continue_step2()
+
+  {	
+
+	  if(Check_step2())
+
+	  {
+
+	  fnm=document.forms['form_basic'].firstName.value;
+
+	  lnm=document.forms['form_basic'].lastName.value;
+
+	  address1=document.forms['form_basic'].address1.value;
+
+	  address2=document.forms['form_basic'].address2.value;
+
+	  city=document.forms['form_basic'].city.value;
+
+	  province=document.forms['form_basic'].province.value;
+
+	  country=document.forms['form_basic'].country.value;
+
+	  postalCode=document.forms['form_basic'].postalCode.value;
+
+	  hid_last_record_id=document.forms['form_basic'].hid_last_record_id.value;
+
+	  reference=document.forms['form_basic'].hid_reference.value;
+
+	  
+
+	  
+	fnm=fnm.replace(/ /g , "..");
+	lnm=lnm.replace(/ /g , "..");
+	  address1=address1.replace(/ /g , "..");
+
+	  address2=address2.replace(/ /g , "..");
+
+	  postalCode=postalCode.replace(/ /g , "..");
+
+	  city=city.replace(/ /g , "..");
+
+	  
+
+	  address1=address1.replace(/#/g , "**");
+
+	  address2=address2.replace(/#/g , "**");
+
+	  postalCode=postalCode.replace(/#/g , "**");
+
+	  
+
+	  
+
+	  str="address1="+address1+"&address2="+address2+"&city="+city+"&province="+province+"&country="+country+"&postalCode="+postalCode+"&reference="+reference+"&hid_last_record_id="+hid_last_record_id+"&fnm="+fnm+"&lnm="+lnm;
+
+	  
+
+	  /*var encrypted = CryptoJS.AES.encrypt(str, "Secret Passphrase");
+
+	  // AABsAABkAABiAAAAAAAAAABNAABlAABPAAC0AABHAAA=
+
+	  alert(encrypted);
+
+	  var decrypted = CryptoJS.AES.decrypt(encrypted, "Secret Passphrase");
+
+	  // 4d657373616765
+
+	  
+
+	  decrypted.toString(CryptoJS.enc.Utf8);
+
+	  // Message
+
+	  */
+
+	  
+
+	  var strURL_liaison = "wp-content/themes/NewsMedia/js/ajax_files/ajax_step3.php?"+str;
+
+	  //alert(strURL_liaison);
+
+	  document.getElementById('div_showprocess').style.display='block';
+
+	  document.getElementById('div_getdata').style.display='none';
+
+	  var req = getXMLHTTP();
+
+	  if (req)
+
+	  {
+
+		  req.onreadystatechange = function () 
+
+		  {
+
+			  if (req.readyState == 4)
+
+			  {  
+
+				  // only if "OK"
+
+				  if (req.status == 200)
+
+				  {
+
+					  //alert(req.responseText);
+
+					  document.getElementById('div_getdata').innerHTML = req.responseText;
+
+					  document.getElementById('div_showprocess').style.display='none';
+
+					  document.getElementById('div_getdata').style.display='block';
+
+				  }
+
+				  else
+
+				  {
+
+					  alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+
+				  }
+
+			  }
+
+		  }
+
+		  req.open("GET", strURL_liaison, true);
+
+		  req.send(null);
+
+	  }	
+
+	  }
+
+  } 
+
+  function Check_step2()
+
+  {
+
+  
+
+  if(CheckPrimaryBusActivity() && document.forms["form_basic"].country.value!="OTHER" && CheckAddress1() && CheckCity() && CheckProvince() && CheckZip()) 
+
+	 {return true;}
+
+	 else
+
+	 {return false;}
+
+  }
+
+	
+
+
+
+
+
+function CheckPrimaryBusActivity()
+
+	{
+
+if(document.forms["form_basic"].cIndustry.value=="") 
+
+{     
+
+window.alert("Choose your Primary Business Activity, please");
+
+document.forms["form_basic"].cIndustry.focus();
+
+return false;
+
+} else if ((document.forms["form_basic"].cIndustry.value=="OTHR") && (document.forms["form_basic"].cIndustryOTHR.value==""))
+
+{
+
+window.alert("Specify your Primary Business Activity, please");
+
+document.forms["form_basic"].cIndustryOTHR.focus();
+
+return false;		
+
+}
+
+else
+
+    return true;
+
+}
+
+
+
+
+
+function CheckAddress1()
+
+{
+
+if(document.forms['form_basic'].address1.value=="")
+
+{     
+
+window.alert("Please enter your street address.");
+
+document.forms['form_basic'].address1.focus();
+
+return false;
+
+}
+
+else
+
+    return true;
+
+}
+
+
+
+function CheckCity()
+
+	{
+
+if(document.forms['form_basic'].city.value=="")
+
+{     
+
+window.alert("Please enter your city");
+
+document.forms['form_basic'].city.focus();
+
+return false;
+
+}
+
+else
+
+    return true;
+
+}
+
+
+
+function ToggleCountry(){
+
+// display correct country depends on index of Province
+
+	//alert(document.forms['fb'].Province.selectedIndex);
+
+	i = document.forms['form_basic'].province.selectedIndex;
+
+	if(i <=14) {
+
+		document.forms['form_basic'].country.selectedIndex = 0;
+
+	}
+
+	else
+
+	{
+
+		document.forms['form_basic'].country.selectedIndex = 1;
+
+	}
+
+
+
+}
+
+
+
+function CheckProvince()
+
+	{
+console.log(document.forms['form_basic'].province.selectedIndex);
+if(document.forms['form_basic'].province.selectedIndex==0)
+
+{     
+
+window.alert("Please select your province or state.");
+
+document.forms['form_basic'].province.focus();
+
+return false;
+
+}
+
+else
+
+    return true;
+
+}
+
+
+
+function CheckZip()
+
+		{  
+
+if(document.forms['form_basic'].postalCode.value=="")
+
+{     
+
+window.alert("Please enter your Zip or Postal code.");
+
+document.forms['form_basic'].postalCode.focus();
+
+return false;
+
+} else if((document.forms['form_basic'].country.value=="CAN") && (document.forms['form_basic'].postalCode.value.search(/^[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ]( )?\d[ABCEGHJKLMNPRSTVWXYZ]\d$/i)==-1))
+
+   {
+
+      alert("The postal code you entered is not valid.");
+
+      document.forms['form_basic'].postalCode.focus();
+
+      return false;
+
+   } else if((document.forms['form_basic'].country.value=="USA") && (document.forms['form_basic'].postalCode.value.search(/^\d{5}(-\d{4})?$/ )==-1))
+
+   {
+
+      alert("The zip code you entered is not valid.");
+
+      document.forms['form_basic'].postalCode.focus();
+
+      return false;
+
+   }
+
+   return true;
+
+  }
+
+  
+
+function fun_reset() 
+
+{
+
+	document.forms['form_basic'].reset();
+
+}
+
+
+
+
+
+function fun_send_mail()
+
+	{
+
+		if(document.forms['form_basic'].province!=undefined)
+
+		{
+
+			reference=document.forms['form_basic'].hid_reference.value;
+
+			hid_last_record_id=document.forms['form_basic'].hid_last_record_id.value;
+
+			
+
+			res=confirm('Are You sure you don\'t want to proceed?');
+
+			if(res)
+
+			{				
+
+				var strURL_liaison = "wp-content/themes/NewsMedia/js/ajax_files/send_email.php?reference="+reference+"&hid_last_record_id="+hid_last_record_id;
+
+				//console.log(strURL_liaison);
+
+				var req = getXMLHTTP();
+
+				if (req)
+
+				{
+
+					req.onreadystatechange = function () 
+
+					{
+
+						if (req.readyState == 4)
+
+						{  
+
+							// only if "OK"
+
+							if (req.status == 200)
+
+							{
+
+								//alert(req.responseText);
+
+								//document.getElementById('div_getdata').innerHTML = req.responseText;
+
+								//document.getElementById('div_showprocess').style.display='none';
+
+								//document.getElementById('div_getdata').style.display='block';								
+
+								//alert('Please check your Email inbox for the On-site Training Catalog Links. Thank You!');
+
+							}
+
+							else
+
+							{
+
+								alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+
+							}
+
+						}
+
+					}
+
+					req.open("GET", strURL_liaison, true);
+
+					req.send(null);
+
+				}					
+
+			}	
+
+			else
+
+			{
+
+				return false;
+
+			}
+
+			return res;			
+
+		}
+
+	}
+
+
+
+
+
+
+
+/*---------------------------------- Functions for Subcription Popup-----------------------------------------------*/
+
+
+
+function fun_subscribeform()// Function to get values based on search field
+
+{
+
+	var strURL_liaison = "wp-content/themes/NewsMedia/js/ajax_files/subscribe/step1.php";
+
+	//alert(strURL_liaison);
+
+	var req = getXMLHTTP();
+
+	if (req)
+
+	{
+
+		req.onreadystatechange = function () {			
+
+			if (req.readyState == 4)
+
+			{   // only if "OK"			
+
+				if (req.status == 200) //404 ---- NOT FOUND
+
+				{
+
+					//alert(req.responseText);
+
+					document.getElementById('div_getdata').innerHTML = req.responseText;
+
+					//alert(document.getElementById('tel'));				
+
+				}
+
+				else
+
+				{				
+
+					alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+
+				}
+
+			}
+
+		}
+
+		req.open("GET", strURL_liaison, true);
+
+		req.send(null);
+
+	}
+
+
+
+}
+
+
+
+function fun_subscribe_step2()
+
+	{	
+
+		/*if(CheckFB()){
+
+		fnm=document.forms['form_basic'].firstName.value;
+
+		lnm=document.forms['form_basic'].lastName.value;
+
+		jobtitle=document.forms['form_basic'].txt_job_title.value;
+
+		co_nm=document.forms['form_basic'].txt_company.value;
+
+		email=document.forms['form_basic'].eMail.value;
+
+		tel=document.forms['form_basic'].tel.value;
+
+		
+
+		
+
+		
+
+		jobtitle=jobtitle.replace(/ /g , "..");
+
+		co_nm=co_nm.replace(/ /g , "..");
+
+		*/
+
+		
+
+		reference=document.forms['form_basic'].hid_reference.value;
+
+		
+
+		//var strURL_liaison = "ajax_files/ajax_step2.php?fnm="+fnm+"&lnm="+lnm+"&jobtitle="+jobtitle+"&co_nm="+co_nm+"&email="+email+"&tel="+tel+"&reference="+reference;
+
+		
+
+		var strURL_liaison =  "wp-content/themes/NewsMedia/js/ajax_files/subscribe/step2.php";
+
+		
+
+		//alert(strURL_liaison);
+
+		var req = getXMLHTTP();
+
+		if (req)
+
+		{
+
+			req.onreadystatechange = function () 
+
+			{
+
+				if (req.readyState == 4)
+
+				{  
+
+					// only if "OK"
+
+					if (req.status == 200)
+
+					{
+
+						//alert(req.responseText);
+
+						document.getElementById('div_getdata').innerHTML = req.responseText;
+
+						
+
+					}
+
+					else
+
+					{
+
+						alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+
+					}
+
+				}
+
+			}
+
+			req.open("GET", strURL_liaison, true);
+
+			req.send(null);
+
+		}	
+
+		//}
+
+	} 
+
+
+
+function toggleProvince(val)
+
+	{			
+
+		document.getElementById('province').value='';	
+
+		if(val=='CAN')
+
+		{
+
+			document.getElementById('us_prov').style.display='none';
+
+			document.getElementById('can_prov').style.display='block';
+
+		}
+
+		else if(val=='USA')
+
+		{
+
+			document.getElementById('can_prov').style.display='none';
+
+			document.getElementById('us_prov').style.display='block';			
+
+		}
+
+		
+
+	}
+
+	
+
+	var str=window.location.search;	
+
+	var str = str.replace("?", "");
+
+	var str = str.replace("/", "");
+
+	if(str=='catdl')
+
+	{
+
+		jQuery(window).load(function() {   //everything is loaded		 http://www.electricity-today.com?catdl	
+
+		jQuery('#a_track_mail').click(fun_getdata('http://www.electricityforum2.com/download_catalog/index_n.php?reference=4'));		
+
+		jQuery("#a_track_mail").trigger("click");				
+
+		});	
+
+	}	
