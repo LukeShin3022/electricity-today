@@ -1,4 +1,4 @@
-@import url("genericon/genericons.css");
+@import url("./genericons.css");
 
 .-skin-default *, .-skin-default *:before, .-skin-default *:after {
     box-sizing: border-box;
