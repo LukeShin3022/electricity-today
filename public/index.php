@@ -67,7 +67,7 @@ $app = Config\Services::codeigniter();
 $app->initialize();
 $context = is_cli() ? 'php-cli' : 'web';
 $app->setContext($context);
-$_SERVER['CI_ENVIRONMENT'] = 'development';
+
 /*
  *---------------------------------------------------------------
  * LAUNCH THE APPLICATION
