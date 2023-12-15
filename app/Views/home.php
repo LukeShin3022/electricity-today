@@ -2184,7 +2184,7 @@ Header style 1
                                                         <a href="https://www.electricityforum.com/catalog/The-Electricity-Forum/et-sep-oct-2023" target="_blank"><strong>Download PDF - SPECIAL EDITION</strong></a><br>
                                                         <span class="span_subs">SUBSCRIPTION</span><span class="span_center"> CENTER</span><br>
                                                         <a href="https://www.electricityforum.com/et-subscription.php" target="_blank">Subscribe Now</a><br>
-                                                        <a href="https://www.electricityforum.com/et-renew.php">Update/Renew Subscription</a><br>
+                                                        <a href="http://localhost:8080/login">Update/Renew Subscription</a><br>
                                                     </div>
                                                     <div class="carousel-item">
                                                         <img src="./images/et_jan_feb_2023_300X250.png" class="d-block w-100" alt="...">
@@ -2193,7 +2193,7 @@ Header style 1
                                                         <a href="https://www.electricityforum.com/catalog/The-Electricity-Forum/et-sep-oct-2023" target="_blank"><strong>Download PDF - SPECIAL EDITION</strong></a><br>
                                                         <span class="span_subs">SUBSCRIPTION</span><span class="span_center"> CENTER</span><br>
                                                         <a href="https://www.electricityforum.com/et-subscription.php" target="_blank">Subscribe Now</a><br>
-                                                        <a href="https://www.electricityforum.com/et-renew.php">Update/Renew Subscription</a><br>
+                                                        <a href="http://localhost:8080/login">Update/Renew Subscription</a><br>
                                                     </div>
                                                     <div class="carousel-item">
                                                         <img src="./images/et_jul_aug_2022-300X250.png" class="d-block w-100" alt="...">
@@ -2202,7 +2202,7 @@ Header style 1
                                                         <a href="https://www.electricityforum.com/catalog/The-Electricity-Forum/et-sep-oct-2023" target="_blank"><strong>Download PDF - SPECIAL EDITION</strong></a><br>
                                                         <span class="span_subs">SUBSCRIPTION</span><span class="span_center"> CENTER</span><br>
                                                         <a href="https://www.electricityforum.com/et-subscription.php" target="_blank">Subscribe Now</a><br>
-                                                        <a href="https://www.electricityforum.com/et-renew.php">Update/Renew Subscription</a><br>
+                                                        <a href="http://localhost:8080/login">Update/Renew Subscription</a><br>
                                                     </div>
                                                 </div>
                                                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">

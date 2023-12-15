@@ -40,101 +40,104 @@
                 </div>
             </div>
         </div>
-    </div>
-    <style>
-        #myaccount_id {
-            display: none !important;
-        }
-    </style>
-    <div class="header-fix-space1" style="height:30px;"></div>
-    <div class="container">
-        <div class="row row-offcanvas row-offcanvas-right">
-            <div class="col-md-12">
-                <div class="col-md-12" style="margin-bottom: 30px;margin-top:-20px">
+        </div>
+        <style>
+            #myaccount_id {
+                display: none !important;
+            }
+        </style>
+        <div class="header-fix-space1" style="height:30px;"></div>
+        <div class="container">
+            <div class="row row-offcanvas row-offcanvas-right">
+                <div class="col-md-12">
+                    <div class="col-md-12" style="margin-bottom: 30px;margin-top:-20px">
 
-                    <div class="row">
-                        <div class="col-md-12" style="text-align:center;margin-bottom:10px">
-                            <img style="width:300px" src="./images/et-logo.jpg">
-                        </div>
-                        <div class="col-md-12 padding_right margin_right join_login_border" style="margin-bottom: 150px;">
-                            <h1 style="text-align:left !important;font-size:15px!important;" class="topheadline1">Renew your FREE Electricity Today Magazine subscription by entering your email address and password that you used to create your subscription.
-                                <br><br>
-                                If you can't remember your password, or have not yet created a password, please click on "Forgot Password" and an email will be sent to you asking you to create a new password.
-                            </h1>
+                        <div class="row">
+                            <div class="col-md-12" style="text-align:center;margin-bottom:10px">
+                                <img style="width:300px" src="./images/et-logo.jpg">
+                            </div>
+                            <div class="col-md-12 padding_right margin_right join_login_border" style="margin-bottom: 150px;">
+                                <h1 style="text-align:left !important;font-size:15px!important;" class="topheadline1">Renew your FREE Electricity Today Magazine subscription by entering your email address and password that you used to create your subscription.
+                                    <br><br>
+                                    If you can't remember your password, or have not yet created a password, please click on "Forgot Password" and an email will be sent to you asking you to create a new password.
+                                </h1>
 
-                            <div class="col-md-6 text-align-center">
-                                <div style="border:0px!important">
-                                    <form id="login_form" class="form_class margin_top20" name="login_form" method="post" novalidate="">
-                                        <div class="margin_top15">
-                                            <input type="email" placeholder="Email" data-parsley-trigger="change" required="" name="user_email" id="user_email" class="form-control">
-                                        </div>
-                                        <div class="margin_top15">
-                                            <input type="password" placeholder="Password" name="user_password" required="" id="user_password" class="form-control">
-                                        </div>
-                                        <div class="margin_top15">
-                                            <input type="hidden" name="url" id="url" value="www.electricityforum.com/">
-                                            <input type="submit" value="LOGIN" class="btn btn-primary btn-lg"> <br>
-                                            <label style="cursor: pointer;font-weight: normal;"><input type="checkbox" id="chk_rememberme" name="chk_rememberme" data-parsley-multiple="chk_rememberme"> Keep Me Logged-In</label>
-                                            &nbsp;&nbsp;<a href="https://www.electricityforum.com/et-forget-password.php?ren=" style="color: red;float:right;">Forgot Your Password?</a>
-                                        </div>
-                                    </form>
-                                    <div id="login_error" class="margin_top10 alert alert-danger" style="display:none"></div>
-                                    <div class="alert alert-warning" style="display:none" id="verify_email">
-                                        You are already subscribed. Please <a onclick="return verify_email()">click here</a> to Verify!
-                                    </div>
+                                <div class="col-md-6 text-align-center">
+                                    <div style="border:0px!important">
+                                    <form action="<?= base_url('auth/check') ?>" method="post" autocomplete="off">
+                                            <div class="margin_top15">
+                                                <input type="email" placeholder="Email" required="" name="email" id="user_email" class="form-control">
+                                                <span class="text-danager"><?= isset($validation) ? display_error($validation, 'email') : '' ?></span>
+                                            </div>
+                                            <div class="margin_top15">
+                                                <input type="password" placeholder="Password" name="password" required="" id="user_password" class="form-control">
+                                                <span class="text-danager"><?= isset($validation) ? display_error($validation, 'password') : '' ?></span>
 
-                                    <div class="alert alert-success" style="display:none;" id="check_email">
-                                        Please check your email..
+                                            </div>
+                                            <div class="margin_top15">
+                                                
+                                                <input type="submit" value="LOGIN" class="btn btn-primary btn-lg"> <br>
+                                                <label style="cursor: pointer;font-weight: normal;">
+                                                <input type="checkbox" id="chk_rememberme" name="chk_rememberme" data-parsley-multiple="chk_rememberme"> Keep Me Logged-In</label>
+                                                
+                                            </div>
+                                        </form>
+                                        
+                                        <div class="alert alert-warning" style="display:none" id="verify_email">
+                                            You are already subscribed. Please <a onclick="return verify_email()">click here</a> to Verify!
+                                        </div>
+
+                                        <div class="alert alert-success" style="display:none;" id="check_email">
+                                            Please check your email..
+                                        </div>
                                     </div>
                                 </div>
+
+                                <div class="col-md-6">
+                                    <h5 class="join_login_heading">Subscribe</h5>
+                                    <p class="common">
+
+                                        <a style="font-size:15px;" href="http://localhost:8080/login">Click here to Login</a>
+
+                                    </p>
+
+                                </div>
+
                             </div>
-
-                            <div class="col-md-6">
-                                <h5 class="join_login_heading">Subscribe</h5>
-                                <p class="common">
-
-                                    <a style="font-size:15px;" href="https://www.electricityforum.com/et-login.php">Click here to Login</a>
-
-                                </p>
-
-                            </div>
-
                         </div>
                     </div>
+
+
+                </div><!--/span-->
+            </div><!--/row-->
+        </div><!--/.container-->
+
+        <div role="dialog" id="div_dlcat" class="modal fade in" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header sc-lightbox-top">
+                        <button data-dismiss="modal" class="close thin-close" type="button">�</button>
+                    </div>
+                    <div id="div_showprocess" class="showprocess"></div>
+                    <div id="div_showmsg"></div>
                 </div>
-
-
-            </div><!--/span-->
-        </div><!--/row-->
-    </div><!--/.container-->
-
-    <div role="dialog" id="div_dlcat" class="modal fade in" style="display: none;">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header sc-lightbox-top">
-                    <button data-dismiss="modal" class="close thin-close" type="button">�</button>
-                </div>
-                <div id="div_showprocess" class="showprocess"></div>
-                <div id="div_showmsg"></div>
             </div>
         </div>
-    </div>
-    <div role="dialog" id="div_loginfrm" class="modal fade in" style="display: none;" data-keyboard="false">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header sc-lightbox-top">
-                    <button data-dismiss="modal" class="close thin-close clsloginfrm" id="login_close" type="button">�</button>
+        <div role="dialog" id="div_loginfrm" class="modal fade in" style="display: none;" data-keyboard="false">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header sc-lightbox-top">
+                        <button data-dismiss="modal" class="close thin-close clsloginfrm" id="login_close" type="button">�</button>
+                    </div>
+                    <div class="modal-body sc-lightbox-body" id="div_loginformcontent"> </div>
                 </div>
-                <div class="modal-body sc-lightbox-body" id="div_loginformcontent"> </div>
             </div>
         </div>
-    </div>
 
-    <span style="display:none;" id="spanuserloginhtml"><!---<a class="new_font_header" href="https://www.electricityforum.com/userpanel/subscriber-dashboard.php" style="color:#fff;"><img height="13" alt="My Dashboard" src="https://www.electricityforum.com/images/poi1.gif"/>MY DASHBOARD</a><span class="divider reversed">&nbsp;|&nbsp;</span><a class="new_font_header" href="https://www.electricityforum.com/logout"><span class="header-bold orange-accent">LOG OUT</span></a>=--></span>
-    <script>
-        var efdomain = 'https://www.electricityforum.com/';
-    </script>
-    <script src="./js/jquery.maskedinput.min.js.download"></script>
-    <script type="text/javascript" src="./js/catdl-script.js.download"></script>
-    
+        <span style="display:none;" id="spanuserloginhtml"><!---<a class="new_font_header" href="https://www.electricityforum.com/userpanel/subscriber-dashboard.php" style="color:#fff;"><img height="13" alt="My Dashboard" src="https://www.electricityforum.com/images/poi1.gif"/>MY DASHBOARD</a><span class="divider reversed">&nbsp;|&nbsp;</span><a class="new_font_header" href="https://www.electricityforum.com/logout"><span class="header-bold orange-accent">LOG OUT</span></a>=--></span>
+        <script>
+            var efdomain = 'https://www.electricityforum.com/';
+        </script>
+        <script src="./js/jquery.maskedinput.min.js.download"></script>
+        <script type="text/javascript" src="./js/catdl-script.js.download"></script>
