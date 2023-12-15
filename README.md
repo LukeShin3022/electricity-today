@@ -1,1 +1,1 @@
-# electrocity-today
+# electricity-today
