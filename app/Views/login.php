@@ -66,11 +66,11 @@
                                     <div style="border:0px!important">
                                     <form action="<?= base_url('auth/check') ?>" method="post" autocomplete="off">
                                             <div class="margin_top15">
-                                                <input type="email" placeholder="Email" required="" name="email" id="user_email" class="form-control">
+                                                <input type="email" placeholder="Email" required="" name="email" id="user_email" class="form-control" value="jwshin@electricityforum.com">
                                                 <span class="text-danager"><?= isset($validation) ? display_error($validation, 'email') : '' ?></span>
                                             </div>
                                             <div class="margin_top15">
-                                                <input type="password" placeholder="Password" name="password" required="" id="user_password" class="form-control">
+                                                <input type="password" placeholder="Password" name="password" required="" id="user_password" class="form-control" value="1234">
                                                 <span class="text-danager"><?= isset($validation) ? display_error($validation, 'password') : '' ?></span>
 
                                             </div>

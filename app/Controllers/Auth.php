@@ -47,7 +47,7 @@ class Auth extends BaseController
         } else {
 
             // $email = $this->request->getPost('email');
-            $email = '1234@a.com';
+            $email = 'jwshin@electricityforum.com';
             // $password = $this->request->getPost('password');
             $password = '1234';            
             // $userModel = new UserModel();
